@@ -1,0 +1,22 @@
+{
+    "name": "misuoka/ocipdo",
+    "description": "基于 OCI API 封装的 Oracle PDO 数据库驱动",
+    "keywords": ["oracle", "oci", "pdo", "pdo_oci"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "misuoka",
+            "email": "125158612@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ocipdo\\": "src"
+        }
+    }
+}
