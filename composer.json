@@ -10,7 +10,6 @@
             "email": "125158612@qq.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0"
     },
