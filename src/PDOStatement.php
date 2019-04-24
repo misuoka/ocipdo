@@ -649,7 +649,7 @@ class PDOStatement extends \PDOStatement
      */
     private function fetchProcedure($fetchMode = '')
     {
-        // TODO: 返回各种 fetchMode 下的历史记录
+        // TODO: 返回各种 fetchMode 下的数据结构
         return $this->proceOutdata;
     }
 
