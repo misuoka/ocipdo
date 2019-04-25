@@ -6,7 +6,7 @@
  * @Licensed: MIT
  * @Version: 1.0.0
  * @Date: 2019-04-22 14:52:31
- * @LastEditTime: 2019-04-24 17:19:35
+ * @LastEditTime: 2019-04-25 11:26:43
  */
 namespace ocipdo;
 
@@ -63,12 +63,12 @@ class PDO extends \PDO
         return $this->connection;
     }
 
-    public function beginTransaction(): boolean
+    public function beginTransaction()
     {
         $this->setAttribute(\PDO::ATTR_AUTOCOMMIT, false);
     }
 
-    public function commit(): boolean
+    public function commit()
     {
         $ret = \oci_commit($this->connection);
 
@@ -147,7 +147,7 @@ class PDO extends \PDO
         return null;
     }
 
-    public static function getAvailableDrivers(): array
+    public static function getAvailableDrivers()
     {
         $drivers = \PDO::getAvailableDrivers();
 
@@ -158,12 +158,12 @@ class PDO extends \PDO
         return $drivers;
     }
 
-    public function inTransaction(): boolean
+    public function inTransaction()
     {
         return !$this->autocommit;
     }
 
-    public function lastInsertId($sequence = null): string
+    public function lastInsertId($sequence = null)
     {
         if (!$sequence) {
             throw new \PDOException("SQLSTATE[IM001]: Driver does not support this function: driver does not support getting attributes in system_requirements");
@@ -202,7 +202,7 @@ class PDO extends \PDO
         return $stmt;
     }
 
-    public function query(string $sql, int $mode = null, $p1 = null, $p2 = null): PDOStatement
+    public function query(string $sql, int $mode = null, $p1 = null, $p2 = null)
     {
         $stmt = null;
 
@@ -218,7 +218,7 @@ class PDO extends \PDO
         return $stmt;
     }
 
-    public function quote($string, $paramType = \PDO::PARAM_STR): string
+    public function quote($string, $paramType = \PDO::PARAM_STR)
     {
         $string = preg_replace('/\'/', "''", $string);
         $string = "'{$string}'";
@@ -226,7 +226,7 @@ class PDO extends \PDO
         return $string;
     }
 
-    public function rollBack(): boolean
+    public function rollBack()
     {
         $ret = \oci_rollback($this->connection);
 
@@ -237,7 +237,7 @@ class PDO extends \PDO
         return $ret;
     }
 
-    public function setAttribute($attribute, $value): boolean
+    public function setAttribute($attribute, $value)
     {
         switch ($attribute) {
             case \PDO::ATTR_AUTOCOMMIT:

@@ -6,7 +6,7 @@
  * @Licensed: MIT
  * @Version: 1.0.0
  * @Date: 2019-04-22 14:55:31
- * @LastEditTime: 2019-04-24 19:26:12
+ * @LastEditTime: 2019-04-25 11:27:00
  */
 namespace ocipdo;
 
@@ -409,7 +409,7 @@ class PDOStatement extends \PDOStatement
      * @param integer $attr
      * @return mixed
      */
-    public function getAttribute($attr): mixed
+    public function getAttribute($attr)
     {
         //
     }
