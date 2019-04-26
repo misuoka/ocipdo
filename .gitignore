@@ -1,4 +1,6 @@
 .idea
+database.php
 .vscode/
+log/
 vendor/
 composer.lock
