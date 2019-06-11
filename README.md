@@ -3,7 +3,7 @@
 
 ## 说明
 
-由于官方很久没有对 PDO_OCI 更新了，其驱动源码默认不支持 Oracle 11g 及以上版本的数据库，当然也可在编译前修改 config.m4 文件使之支持。但安装之后，PDO_OCI 使用中却存在问题，如果数据库中存储中文，查询后会出现字符截断，无法得到预期的结果。
+由于官方很久没有对 PDO_OCI 更新了，其驱动源码默认不支持 Oracle 11g 及以上版本的数据库。当然也可在编译前修改 config.m4 文件使之支持，但安装之后，PDO_OCI 使用中却存在问题，如果数据库中存储中文，查询后会出现字符截断，无法得到预期的结果。
 
 本库使用基于 OCI API 封装的 PDO 接口数据库驱动 [misuoka\ocipdo](https://github.com/misuoka/ocipdo)，用来对 Oracle 数据库进行操作。
 
@@ -11,11 +11,24 @@
 
 ## 使用方法
 
+### 使用前提
+
+你的运行环境已经安装了 oci 驱动
+
+> 安装方法可参考：
+> 1. Windows 环境下 https://blog.csdn.net/luodong1983/article/details/79986180
+> 2. Linux 环境下 https://gist.github.com/hewerthomn/81eea2935051eb2500941a9309bca703
+
+### 安装 ocipdo
+
 使用 composer 进行安装 `composer require misuoka/ocipdo`
 
 ```PHP
 use ocipdo\PDO as OCIPDO;
 
+// $dns => oci:dbname=//localhost:1521/orcl
+// $username => 用户名
+// $password => 密码
 $pdo = new OCIPDO($dns, $username, $password);
 ```
 
@@ -33,6 +46,6 @@ $pdo = new OCIPDO($dns, $username, $password);
 
 ```PHP
 $ret = $stmt->bindValue(':CLOB_CONTENT', $data['CLOB_CONTENT'], \PDO::PARAM_LOB); // 写入 CLOB 数据
-$ret = $stmt->bindValue(':BLOB_CONTENT', $data['BLOB_CONTENT'], \PDO::PARAM_LOB); // 写入 BLOB 数据
+$ret = $stmt->bindValue(':BLOB_CONTENT', $data['BLOB_CONTENT'], \PDO::PARAM_LOB + \PDO::PARAM_LOB); // 写入 BLOB 数据
 ```
 
