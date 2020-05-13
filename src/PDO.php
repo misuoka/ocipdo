@@ -319,7 +319,7 @@ class PDO extends \PDO
         $arr = preg_split('/;/', $dsn);
 
         if (count($arr) > 1) {
-            $charset = trim(preg_replace('/^charset\s=\s/i', '', strtolower($arr[1]))) ?: null;
+            $charset = strtoupper(trim(preg_replace('/^charset\s=\s/i', '', strtolower($arr[1])))) ?: null;
         } else {
             $charset = 'AL32UTF8';
         } /* else {
