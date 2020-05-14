@@ -379,7 +379,7 @@ class PDOStatement extends \PDOStatement
             $result = $this->fetch(\PDO::FETCH_NUM);
         }
 
-        return $result[$column];
+        return $result === false ? null : $result[$column];
     }
 
     // Declaration of ocipdo\PDOStatement::fetchObject(string $class, array $args): think\oracle\mixed should be compatible with PDOStatement::fetchObject($class_name = NULL, $ctor_args = NULL)
