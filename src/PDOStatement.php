@@ -268,7 +268,7 @@ class PDOStatement extends \PDOStatement
         $this->fetchMode = $style;
 
         try {
-            if ($this->stmtType == 'BEGIN') {
+            if (in_array($this->stmtType, ['BEGIN', 'CALL'])) {
                 $result = $this->fetchProcedure($style);
             } else {
                 switch ($style) {
@@ -304,7 +304,7 @@ class PDOStatement extends \PDOStatement
         $style  = is_null($style) ? $this->fetchMode : $style;
         $result = null;
         try {
-            if ($this->stmtType == 'BEGIN') {
+            if (in_array($this->stmtType, ['BEGIN', 'CALL'])) {
                 $result = $this->fetchProcedure($style);
             } else {
                 switch ($style) {
@@ -373,13 +373,13 @@ class PDOStatement extends \PDOStatement
     // Declaration of ocipdo\PDOStatement::fetchColumn(int $column = 0) should be compatible with PDOStatement::fetchColumn($column_number = NULL)
     public function fetchColumn($column = 0)
     {
-        if ($this->stmtType == 'BEGIN') {
+        if (in_array($this->stmtType, ['BEGIN', 'CALL'])) {
             $result = $this->fetchProcedure(\PDO::FETCH_NUM);
         } else {
             $result = $this->fetch(\PDO::FETCH_NUM);
         }
 
-        return $result[$column];
+        return $result === false ? null : $result[$column]; // 避免严格模式下，抛出异常
     }
 
     // Declaration of ocipdo\PDOStatement::fetchObject(string $class, array $args): think\oracle\mixed should be compatible with PDOStatement::fetchObject($class_name = NULL, $ctor_args = NULL)
@@ -389,7 +389,7 @@ class PDOStatement extends \PDOStatement
 
         try {
 
-            if ($this->stmtType == 'BEGIN') {
+            if (in_array($this->stmtType, ['BEGIN', 'CALL'])) {
                 $data = $this->fetchProcedure(\PDO::FETCH_ASSOC);
             } else {
                 $data = $this->fetch(\PDO::FETCH_ASSOC);
@@ -638,7 +638,7 @@ class PDOStatement extends \PDOStatement
 
     private function isProcedureOutType($type)
     {
-        return $this->stmtType == 'BEGIN' && \PDO::PARAM_INPUT_OUTPUT === ($type & \PDO::PARAM_INPUT_OUTPUT);
+        return in_array($this->stmtType, ['BEGIN', 'CALL']) && \PDO::PARAM_INPUT_OUTPUT === ($type & \PDO::PARAM_INPUT_OUTPUT);
     }
 
     /**
